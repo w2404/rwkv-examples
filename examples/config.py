@@ -12,10 +12,10 @@ m_in='/mnt/raid/6/@data/ai/rwkv/models/RWKV-4-Raven-7B-v11-Eng49-Chn49-Jpn1-Othe
 
 #这个cpu版几乎不可用，占用大量内存，在我们没有内存的情况下，时间都耗费在缓存上了
 #strategy='cuda fp16i8 *20 -> cpu fp32'
-strategy,m_in='cuda fp16i8 *30+','/mnt/raid/6/@data/ai/rwkv/models/RWKV-4-Raven-7B-v10x-Eng49-Chn50-Other1-20230423-ctx4096.pth'#峰值7.8G
 strategy,m_in='cuda fp16i8 *18+','/mnt/raid/6/@data/ai/rwkv/models/RWKV-4-Raven-14B-v11x-Eng99-Other1-20230501-ctx8192.pth'#峰值7.6G，但是在100pets提问中溢出了
-strategy,m_in='cuda fp16i8 *15+','/mnt/raid/6/@data/ai/rwkv/models/RWKV-4-Raven-14B-v11x-Eng99-Other1-20230501-ctx8192.pth'#
 strategy,m_in='cuda fp16i8','/mnt/raid/6/@data/ai/rwkv/models/RWKV-4-Raven-3B-v10x-Eng49-Chn50-Other1-20230423-ctx4096.pth'
+strategy,m_in='cuda fp16i8 *15+','/mnt/raid/6/@data/ai/rwkv/models/RWKV-4-Raven-14B-v11x-Eng99-Other1-20230501-ctx8192.pth'#
+strategy,m_in='cuda fp16i8 *30+','/mnt/raid/6/@data/ai/rwkv/models/RWKV-4-Raven-7B-v10x-Eng49-Chn50-Other1-20230423-ctx4096.pth'#峰值7.8G
 
 p0,n=os.path.split(m_in)
 

@@ -1,3 +1,6 @@
+"""
+基本的对话，
+"""
 import urllib.request
 import json
 

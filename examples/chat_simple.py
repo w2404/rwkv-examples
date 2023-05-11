@@ -12,7 +12,6 @@ os.environ["RWKV_CUDA_ON"] = '1' # '1' to compile CUDA kernel (10x faster), requ
 
 CHAT_LEN_SHORT = 40
 CHAT_LEN_LONG = 150
-FREE_GEN_LEN = 256
 
 GEN_alpha_presence = 0.2 # Presence Penalty
 GEN_alpha_frequency = 0.2 # Frequency Penalty
@@ -43,8 +42,10 @@ def run_rnn(tokens, newline_adj = 0):
     global model_tokens, model_state
     tokens = [int(x) for x in tokens]
     model_tokens += tokens
-    #这里没必要开tqdm，提问阶段虽然这里会卡一下，但是后续字符生成会在这里重复跑，那里消耗更大
-    for i in (range(0,len(tokens),CHUNK_LEN)):
+    l=range(0,len(tokens),CHUNK_LEN)
+    if len(tokens)>CHUNK_LEN:
+        l=tqdm(l)
+    for i in l: 
         out, model_state = model.forward(tokens[i:i+CHUNK_LEN], model_state)
     out[END_OF_LINE] += newline_adj # adjust \n probability
     if model_tokens[-1] in AVOID_REPEAT_TOKENS:
@@ -52,7 +53,8 @@ def run_rnn(tokens, newline_adj = 0):
     return out
 
 def send1(m,newline_adj=0):
-    print('send1',m.encode())
+    #print('send1',m.encode())
+    print(m)
     return run_rnn(pipeline.encode(m),newline_adj=newline_adj)
 
 
