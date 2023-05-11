@@ -16,9 +16,9 @@ class Server(BaseHTTPRequestHandler):
         
     def do_POST(self):
         length = int(self.headers.get('Content-Length'))
-        message = self.rfile.read(length).decode()
+        o=json.loads(self.rfile.read(length))
         self._set_headers()
-        for s in chat_simple.on_message(message):
+        for s in chat_simple.on_message(o):
             self.wfile.write(s.encode())
 
 httpd = HTTPServer(('', 8008), Server)
